@@ -6,18 +6,17 @@
     "name": "Newan",
     "email": "info@newan.de"
   },
-  "homepage": "https://github.com/Newan/ioBroker.webuntis",
+  "homepage": "https://github.com/inbux/ioBroker.webuntis",
   "license": "MIT",
   "keywords": [
     "webuntis Stundenplan Schule"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Newan/ioBroker.webuntis"
+    "url": "https://github.com/inbux/ioBroker.webuntis"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.5.1",
-    "dev-server": "^0.2.0",
     "webuntis": "^1.20.0"
   },
   "devDependencies": {
@@ -72,7 +71,7 @@
     "release": "release-script"
   },
   "bugs": {
-    "url": "https://github.com/Newan/ioBroker.webuntis/issues"
+    "url": "https://github.com/inbux/ioBroker.webuntis/issues"
   },
   "readmeFilename": "README.md"
 }
