@@ -10,6 +10,7 @@ declare global {
             client_secret: string;
             school: string;
             baseUrl: string;
+            login_method: string;
         }
     }
 }

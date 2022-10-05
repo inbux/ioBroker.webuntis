@@ -162,7 +162,8 @@
         "username": "",
         "client_secret": "",
         "school": "",
-        "baseUrl": ""
+        "baseUrl": "",
+        "login_method": "PasswordLogin"
     },
     "protectedNative": [
         "client_secret"

@@ -14,6 +14,18 @@ systemDictionary = {
         'pl': 'Ustawienia adaptera dla webuntis',
         'zh-cn': 'webuntis的适配器设置'
     },
+    "Login method": {
+        "en": "Login method",
+        "de": "Anmeldemethode",
+        "ru": "Логин метод",
+        "pt": "Método de login",
+        "nl": "Login methode",
+        "fr": "Méthode d ' identification",
+        "it": "Metodo di login",
+        "es": "Método de inicio",
+        "pl": "Metoda loginowa",
+        "zh-cn": "逻辑方法"
+    },
     'anonymous': {
         "en": "anonymous",
         "de": "anonym",
@@ -50,17 +62,17 @@ systemDictionary = {
         "pl": "Nazwa użytkownika",
         "zh-cn": "用户名"
     },
-    "Password": {
-        "en": "Password",
-        "de": "Passwort",
-        "ru": "Пароль",
-        "pt": "Senha",
-        "nl": "Wachtwoord",
-        "fr": "Mot de passe",
-        "it": "Parola d'ordine",
-        "es": "Contraseña",
-        "pl": "Hasło",
-        "zh-cn": "密码"
+    "Password/Secret": {
+        "en": "Password/Secret",
+        "de": "Passwort/Secret",
+        "ru": "Пароль/Secret",
+        "pt": "Senha/Secret",
+        "nl": "Wachtwoord/Secret",
+        "fr": "Mot de passe/Secret",
+        "it": "Parola d'ordine/Secret",
+        "es": "Contraseña/Secret",
+        "pl": "Hasło/Secret",
+        "zh-cn": "密码/Secret"
     },
     "School settings": {
         "en": "School settings",
