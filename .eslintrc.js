@@ -8,13 +8,14 @@ module.exports = {
     },
     extends: [
         'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
+     
     ],
     plugins: [],
     rules: {
         'indent': 'off',
         '@typescript-eslint/indent': [
             'error',
-            4,
+            2,
             {
                 'SwitchCase': 1
             }

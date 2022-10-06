@@ -1,58 +1,101 @@
-![Logo](https://github.com/Newan/ioBroker.webuntis/admin/webuntis.png)
-# ioBroker.webuntis
-
-[![NPM version](https://img.shields.io/npm/v/iobroker.webuntis.svg)](https://www.npmjs.com/package/iobroker.webuntis)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.webuntis.svg)](https://www.npmjs.com/package/iobroker.webuntis)
-![Number of Installations](https://iobroker.live/badges/webuntis-installed.svg)
-![Current version in stable repository](https://iobroker.live/badges/webuntis-stable.svg)
-[![Dependency Status](https://img.shields.io/david/Newan/iobroker.webuntis.svg)](https://david-dm.org/Newan/iobroker.webuntis)
-
-[![NPM](https://nodei.co/npm/iobroker.webuntis.png?downloads=true)](https://nodei.co/npm/iobroker.webuntis/)
-
-**Tests:** ![Test and Release](https://github.com/Newan/ioBroker.webuntis/workflows/Test%20and%20Release/badge.svg)
-
 ## webuntis adapter for ioBroker
 
+Adapter to get data from WebUntis
 
-Dieser Adapter bezieht Daten aus Webuntis. Für eine deutsche Anleitung
+Dieser Adapter bezieht Daten aus Webuntis.
+Es ist ein Fork von https://github.com/Newan/ioBroker.webuntis - dort befindet sich auch eine Anleitung zur Einstellung.
 
-This Adapter get data from WebUntis. For english-tutorial ![click here](https://github.com/Newan/ioBroker.webuntis/readme.md)
+## Warum diese spezielle Version
 
-## Konfiguration
-Nach der Installation des Adapters in Iobroker und dem erstellen einer Instanz, erscheint automatisch
-das Konfigurationsfenster.
+Diese spezielle Variante ist vermutlich nur bei unserer Schule erforderlich und in erster Linie von persönlichen Interesse.
 
-Zur Vorbereitung, geht man in einem Webbrowser auf die Seite ![webuntis.com](https://webuntis.com)
-Im Suchfeld auf der Seite gibt man den gewünschten Schulnamen ein.
-Daraufhin öffnet sich eine Webseite. In der Adresszeile des Browsers stehen nun die gewünschten Daten.
+Leider ist es bei unserer Schule erforderlich, die Daten per anonymen Login und persönlichen Login abzuholen und diese Daten dann zu kombinieren.
 
-![webuntis_start](img/webuntis_start.png)
+Bei der Datenabfrage mit Login erhält man seinen persönlichen Stundenplan, allerdings fehlen sämtliche Informationen zum Ausfall oder Vertretung - nicht mal der Lehrer wird übertragen.
 
+Bei der anonymen Abfrage bekommt man die Daten zum Ausfall, Vertretung oder Raumwechsel. Dabei werden auch der ursprüngliche Raum bzw. Lehrer mit übertragen.
 
-Wir benötigen folgende Strings aus der Adresszeile
+Allerdings werden alle möglichen Unterrichtsfächer an dem jeweiligen Tag übertragen, also auch Kurse, die gleichzeit stattfinden und nicht vom Schüler gewählt wurden.
 
-- the base-url 
-- the school-secret
+Das ist naturlich sehr unübersichtlich.
 
-Im Beispiel-Screenshot sind dies folgende Daten als Beispiel:
-https://hepta.webuntis.com/WebUntis/?school=hbs-F%C3%BCrth#/basic/login
-        
-- hepta.webuntis.com    => the schoolbase-URL
-- hbs-F%C3%BCrth        => the school-secret
+Aus diesen Gründen wurden jetzt beide Loginverfahren kombiniert.
+Erst wird eine persönliche Abfrage durchgeführt und alle Daten erzeugt. Dabei werden die Unterrichtsfächer zwischengespeichert.
+Dann erfolgt mit kurzer Verzögerung eine anonyme Abfrage. Dabei werden alle Unterrichtsfächer, die zuvor nicht gelesen wurden, übersprungen.
 
-**Sollte im school-Sercet ein __+__ vorhanden sein. Muss dieses im folgenden Schritt durch ein Leerzeichen ersetzt werden**
+So erhält man komplette Information über den eigenen Stundenplan.
 
-Nun wechselt man in Iobroker-Konfigurationsfenster des Adapters
+## Login mit Username & Secret
 
-![webuntis_config](img/webuntis_config.png)
+Die Schüler melden sich bei unserer Schule über IServ bei Webuntis an. D.h. es gibt keine Logindaten in der Form Username/Passwort.
 
-- Unter Username (Kind oder Elternteil) gibt man den Benutzernamen ein.
-- Unter Passwort, das Passwort des Users
-- Unter school-secret gibt man den Teil der Webadresse ein, der zwischen "/?school" und "#/" steht
-- Unter schoolbase-URL gibt man den Teil der Webadresse ein, der zwischen "https://" und "/webuntes/" steht
+In Webuntis kann man die einen QR anzeigen lassen und dort kann man auch ein Secret erhalten.
+Es gibt jetzt die Möglichkeit bei den Adaptereinstellungen mit Username/Secret anstelle Username/Passwort anzumelden.
 
-Speichern und nun erhält man alle Daten die der Adapter abrufen kann.
+<!--
+    Placeholder for the next version (at the beginning of the line):
+    ### **WORK IN PROGRESS**
+-->
 
-Wer Anregungen zur Verbesserung des Adapters hat, kann gerne einen hier oder im Iobroker-Forum an uns weiterleiten:
-https://forum.iobroker.net/topic/51690/tester-neuer-adapter-webuntis
+## Anpassungen für die speziellen Anforderung an unserer Schule (2022-10-06)
 
+- (inbux) login two times - anonymous and using a password/secret to get all needed data
+- (inbux) added login using username & secret
+- (inbux) added some more states
+
+### 0.3.4 (2022-05-08)
+
+- change log-level for error messages
+
+### 0.3.3 (2022-04-03)
+
+- Add errorhandling for timetable
+
+### 0.3.2 (2022-03-02)
+
+- Add errorhandling for inbox & mesage center
+
+### 0.3.1 (2022-01-30)
+
+- Bug fixes in timetable
+
+### 0.3.0 (2022-01-29)
+
+- Add Inbox peview data
+
+### 0.2.0 (2022-01-27)
+
+- Add anonymous login
+
+### 0.1.0 (2022-01-25)
+
+- Add nextDay
+- Add code element
+
+### 0.0.1 (2022-01-25)
+
+- (Newan) initial release
+
+## License
+
+MIT License
+
+Copyright (c) 2022 Newan <info@newan.de>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

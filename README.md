@@ -1,86 +1,83 @@
-![Logo](admin/webuntis.png)
-# ioBroker.webuntis
-
-[![NPM version](https://img.shields.io/npm/v/iobroker.webuntis.svg)](https://www.npmjs.com/package/iobroker.webuntis)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.webuntis.svg)](https://www.npmjs.com/package/iobroker.webuntis)
-![Number of Installations](https://iobroker.live/badges/webuntis-installed.svg)
-![Current version in stable repository](https://iobroker.live/badges/webuntis-stable.svg)
-[![Dependency Status](https://img.shields.io/david/Newan/iobroker.webuntis.svg)](https://david-dm.org/Newan/iobroker.webuntis)
-
-[![NPM](https://nodei.co/npm/iobroker.webuntis.png?downloads=true)](https://nodei.co/npm/iobroker.webuntis/)
-
-**Tests:** ![Test and Release](https://github.com/Newan/ioBroker.webuntis/workflows/Test%20and%20Release/badge.svg)
-
 ## webuntis adapter for ioBroker
 
 Adapter to get data from WebUntis
 
-Dieser Adapter bezieht Daten aus Webuntis. 
-Für eine deutsche Anleitung [hier klicken](readme/readme.de.md)
+Dieser Adapter bezieht Daten aus Webuntis.
+Es ist ein Fork von https://github.com/Newan/ioBroker.webuntis - dort befindet sich auch eine Anleitung zur Einstellung.
 
-## Donation
-[![](https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=L55UBQJKJEUJL)
+## Warum diese spezielle Version
 
-## Getting started
-After the install of the adapter in iobroker, automatically opens the Configuration-Window.
+Diese spezielle Variante ist vermutlich nur bei unserer Schule erforderlich und in erster Linie von persönlichen Interesse.
 
-Now go to https://webuntis.com and take the schoolname in the searchfield.
+Leider ist es bei unserer Schule erforderlich, die Daten per anonymen Login und persönlichen Login abzuholen und diese Daten dann zu kombinieren.
 
-![webuntis_start](readme/img/webuntis_start.png)
+Bei der Datenabfrage mit Login erhält man seinen persönlichen Stundenplan, allerdings fehlen sämtliche Informationen zum Ausfall oder Vertretung - nicht mal der Lehrer wird übertragen.
 
-now you need to strings from the internet-adress of the schoolwebsite from webuntis:
-- the base-url 
-- the school-secret
+Bei der anonymen Abfrage bekommt man die Daten zum Ausfall, Vertretung oder Raumwechsel. Dabei werden auch der ursprüngliche Raum bzw. Lehrer mit übertragen.
 
-see the example below the previous screenshot: [here](https://hepta.webuntis.com/WebUntis/?school=hbs-F%C3%BCrth#/basic/login)
+Allerdings werden alle möglichen Unterrichtsfächer an dem jeweiligen Tag übertragen, also auch Kurse, die gleichzeit stattfinden und nicht vom Schüler gewählt wurden.
 
-- hepta.webuntis.com    => the schoolbase-URL
-- hbs-F%C3%BCrth        => the school-secret
+Das ist naturlich sehr unübersichtlich.
 
-**If in school-secret is a __+__ , then you must replace this character with a blank space**
+Aus diesen Gründen wurden jetzt beide Loginverfahren kombiniert.
+Erst wird eine persönliche Abfrage durchgeführt und alle Daten erzeugt. Dabei werden die Unterrichtsfächer zwischengespeichert.
+Dann erfolgt mit kurzer Verzögerung eine anonyme Abfrage. Dabei werden alle Unterrichtsfächer, die zuvor nicht gelesen wurden, übersprungen.
 
-now go to the configuration-window in iobroker
+So erhält man komplette Information über den eigenen Stundenplan.
 
-![webuntis_config](readme/img/webuntis_config.png)
+## Login mit Username & Secret
 
-after the insert of your Username (child or parent) and the password for this account, you can take 
-the school-secret and the school-basr-Url to the configuration.
+Die Schüler melden sich bei unserer Schule über IServ bei Webuntis an. D.h. es gibt keine Logindaten in der Form Username/Passwort.
 
-Save and at this moment you will become the lessons for the next day.
+In Webuntis kann man die einen QR anzeigen lassen und dort kann man auch ein Secret erhalten.
+Es gibt jetzt die Möglichkeit bei den Adaptereinstellungen mit Username/Secret anstelle Username/Passwort anzumelden.
 
-please feel free, to make a proposal for recommend versions.
-
-## Changelog
 <!--
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+## Anpassungen für die speziellen Anforderung an unserer Schule (2022-10-06)
+
+- (inbux) login two times - anonymous and using a password/secret to get all needed data
+- (inbux) added login using username & secret
+- (inbux) added some more states
+
 ### 0.3.4 (2022-05-08)
-* change log-level for error messages
+
+- change log-level for error messages
 
 ### 0.3.3 (2022-04-03)
-* Add errorhandling for timetable
+
+- Add errorhandling for timetable
 
 ### 0.3.2 (2022-03-02)
-* Add errorhandling for inbox & mesage center
+
+- Add errorhandling for inbox & mesage center
 
 ### 0.3.1 (2022-01-30)
-* Bug fixes in timetable
+
+- Bug fixes in timetable
 
 ### 0.3.0 (2022-01-29)
-* Add Inbox peview data
+
+- Add Inbox peview data
 
 ### 0.2.0 (2022-01-27)
-* Add anonymous login
+
+- Add anonymous login
 
 ### 0.1.0 (2022-01-25)
-* Add nextDay
-* Add code element
+
+- Add nextDay
+- Add code element
 
 ### 0.0.1 (2022-01-25)
-* (Newan) initial release
+
+- (Newan) initial release
 
 ## License
+
 MIT License
 
 Copyright (c) 2022 Newan <info@newan.de>
