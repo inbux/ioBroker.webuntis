@@ -80,6 +80,7 @@ Es gibt jetzt die Möglichkeit bei den Adaptereinstellungen mit Username/Secret 
 
 MIT License
 
+Copyright (c) 2022 Inbux <inbux.developemnet@gmail.com>
 Copyright (c) 2022 Newan <info@newan.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
