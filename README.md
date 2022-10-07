@@ -32,7 +32,7 @@ Die Schüler melden sich bei unserer Schule über IServ bei Webuntis an. D.h. es
 In Webuntis kann man die einen QR anzeigen lassen und dort kann man auch ein Secret erhalten.
 Es gibt jetzt die Möglichkeit bei den Adaptereinstellungen mit Username/Secret anstelle Username/Passwort anzumelden.
 
-![image](/readme/img/WebuntisSettings.png)
+![image](/readme/img/WebuntisSettings.jpg)
 
 ## Weitere Datenpunkte
 
