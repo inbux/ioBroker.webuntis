@@ -38,11 +38,13 @@ Es gibt jetzt die Möglichkeit bei den Adaptereinstellungen mit Username/Secret 
 
 Unsere Schule überträgt bei Lehrer- oder Raumwechsel den Ursprungsleherer bzw. Raum. Diese werden jetzt in zusätzlichen Datenpunkten gespeichert.
 Weiterhin wird auch der Unterrichtsname in Langform gespeichert.
+
 ![image](/readme/img/WebuntisStates.png)
 
 ## Script zur Erzeugung einer Tabelle in JSON
 
 Zur Darstellung in Vis habe ich ein Script erstellt, dass die Datenpunkte in einer Tabelle zusammen stellt. Die Daten werden als JSON erzeugt und können direkt mit der JSON Tabelle aus den Material Design Widget verwendet werden. Da ich zwei schulpflichtige Kinder habe, werden zwei Instanzen von webuntis ausgewertet (kann aber im Script leicht konfiguriert werden) [zum Script...](/ScriptTableJSON/CreateTableJSON.js)
+
 ![image](/readme/img/WebuntisTabelle.png)
 
 Im Tabelle Widget muss nur die Spaltenanzahl auf 5 gesetzt werden, entsprechende Überschriften eingetragen werden und die Spaltenabstände auf 0 setzt werden (damit der Hintergrund vernünftig aussieht).
@@ -103,7 +105,7 @@ Diese Version muss über die "Katze" installiert werden und ersetzt den Standard
 
 MIT License
 
-Copyright (c) 2022 Inbux <inbux.developemnet@gmail.com>
+Copyright (c) 2022 Inbux <inbux.development@gmail.com>
 
 Copyright (c) 2022 Newan <info@newan.de>
 
