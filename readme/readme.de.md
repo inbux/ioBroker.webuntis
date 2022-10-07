@@ -45,7 +45,7 @@ Weiterhin wird auch der Unterrichtsname in Langform gespeichert.
 
 Zur Darstellung in Vis habe ich ein Script erstellt, dass die Datenpunkte in einer Tabelle zusammen stellt. Die Daten werden als JSON erzeugt und können direkt mit der JSON Tabelle aus den Material Design Widget verwendet werden. Da ich zwei schulpflichtige Kinder habe, werden zwei Instanzen von webuntis ausgewertet (kann aber im Script leicht konfiguriert werden) [zum Script...](/ScriptTableJSON/CreateTableJSON.js)
 
-![image](/readme/img/WebuntisTabelle.png)
+![image](/readme/img/WebuntisTabelle.jpg)
 
 Im Tabelle Widget muss nur die Spaltenanzahl auf 5 gesetzt werden, entsprechende Überschriften eingetragen werden und die Spaltenabstände auf 0 setzt werden (damit der Hintergrund vernünftig aussieht).
 
