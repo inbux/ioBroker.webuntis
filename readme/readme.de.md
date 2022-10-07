@@ -49,7 +49,7 @@ Zur Darstellung in Vis habe ich ein Script erstellt, dass die Datenpunkte in ein
 
 Im Tabelle Widget muss nur die Spaltenanzahl auf 5 gesetzt werden, entsprechende Überschriften eingetragen werden und die Spaltenabstände auf 0 setzt werden (damit der Hintergrund vernünftig aussieht).
 
-Das Script ist ansonsten recht einfach aufgebaut und könnte auch mit den Standardadapter funktionieren (nicht getestet) bzw. kann auch leicht als Vorlage für eigene Anpassungen benutzt werden.
+Das Script ist ansonsten recht einfach aufgebaut und funktioniert auch mit den Standardadapter. Es kann aber auch leicht als Vorlage für eigene Anpassungen benutzt werden.
 
 ## Installation
 
