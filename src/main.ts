@@ -15,8 +15,9 @@ class Webuntis extends utils.Adapter {
   private timeoutRead: any;
   private timetableDate: Date;
   private class_id: number;
-  private subjectList0: number[] = [];
-  private subjectList1: number[] = [];
+  //private subjectList0: number[] = [];
+  //private subjectList1: number[] = [];
+  private subjectList: number[][] = [];
   private anonymousLogin = false;
   private loginSuccessful = false;
   private numberOfDays = 5;
@@ -186,7 +187,7 @@ class Webuntis extends utils.Adapter {
                 await this.setTimeTable(timetable, this.timetableDate, 0);
               })
               .catch(async (error) => {
-                this.log.error("Cannot read Timetable data from 0 - possible block by scool");
+                this.log.error("Cannot read Timetable data from 0 - possible block by school");
                 this.log.debug(error);
               });
           }
@@ -203,7 +204,7 @@ class Webuntis extends utils.Adapter {
                 await this.setTimeTable(timetable, newDate, day);
               })
               .catch(async (error) => {
-                this.log.error("Cannot read Timetable data from +1 - possible block by scool");
+                this.log.error("Cannot read Timetable data from " + day + " - possible block by school");
                 this.log.debug(error);
               });
           }
@@ -258,7 +259,7 @@ class Webuntis extends utils.Adapter {
                   await this.setTimeTable(timetable, this.timetableDate, 0, false);
                 })
                 .catch(async (error) => {
-                  this.log.error("Cannot read Timetable data from 0 - possible block by scool");
+                  this.log.error("Cannot read OwnTimetable data from 0 - possible block by school");
                   this.log.debug(error);
                 });
             }
@@ -273,13 +274,13 @@ class Webuntis extends utils.Adapter {
                   await this.setTimeTable(timetable, newDate, day, false);
                 })
                 .catch(async (error) => {
-                  this.log.error("Cannot read Timetable data from +1 - possible block by scool");
+                  this.log.error("Cannot read OwnTimetable data from " + day + " - possible block by school");
                   this.log.debug(error);
                 });
             }
           })
           .catch(async (error) => {
-            this.log.error("Cannot read Timetable for today - possible block by scool");
+            this.log.error("Cannot read OwnTimetable for today - possible block by school");
             this.log.debug(error);
           });
 
@@ -321,8 +322,9 @@ class Webuntis extends utils.Adapter {
 
   // ----------------------------------------------------------------------------
   private readDataFromWebUntis(): void {
-    this.subjectList0.length = 0;
-    this.subjectList1.length = 0;
+    //this.subjectList0.length = 0;
+    //this.subjectList1.length = 0;
+    this.subjectList = [];
 
     try {
       this.setStateAsync("0.exceptions", false, true);
@@ -338,8 +340,8 @@ class Webuntis extends utils.Adapter {
     if (this.config.class != "") {
       this.timeoutRead = this.setTimeout(() => {
         this.log.debug("Reading anonymous data");
-        this.log.debug("Subjects0: " + JSON.stringify(this.subjectList0));
-        this.log.debug("Subjects1: " + JSON.stringify(this.subjectList1));
+
+        for (let day = 0; day < this.numberOfDays; day++) this.log.debug("Subjects on day " + day.toString() + ": " + JSON.stringify(this.subjectList[day]));
         this.readAnonymousData();
       }, 15000);
     }
@@ -487,19 +489,19 @@ class Webuntis extends utils.Adapter {
     this.log.debug(JSON.stringify(timetable));
     // ---- looping all subjects -----------------------
 
+    if (this.subjectList[dayindex] == undefined) this.subjectList[dayindex] = [];
+
     for (const element of timetable) {
       this.log.debug("Element found: " + index.toString());
       this.log.debug(JSON.stringify(element));
       skipSubject = false;
       // first time, get all personal subjects
       if (!anonymous) {
-        if (dayindex == 0) this.subjectList0.push(element.id);
-        if (dayindex == 1) this.subjectList1.push(element.id);
+        this.subjectList[dayindex].push(element.id);
       }
       // second run, skip all subject that are not for us
       else {
-        if (dayindex == 0) if (this.subjectList0[index] != element.id) skipSubject = true;
-        if (dayindex == 1) if (this.subjectList1[index] != element.id) skipSubject = true;
+        if (this.subjectList[dayindex][index] != element.id) skipSubject = true;
       }
 
       if (!skipSubject || this.anonymousLogin) {
