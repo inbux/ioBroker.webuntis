@@ -68,7 +68,7 @@ class Webuntis extends utils.Adapter {
       untis
         .login()
         .then(async () => {
-          this.log.info("Anonymous Login sucessfully");
+          this.log.info("Anonymous Login sucessful");
           //search class id
           await untis
             .getClasses()
@@ -115,7 +115,7 @@ class Webuntis extends utils.Adapter {
       untis
         .login()
         .then(async () => {
-          this.log.info("WebUntis Login sucessfully");
+          this.log.info("WebUntis Login sucessful");
           // Now we can start
           this.loginSuccessful = true;
         })
@@ -163,16 +163,16 @@ class Webuntis extends utils.Adapter {
     untis
       .login()
       .then(async () => {
-        this.log.debug("WebUntis Anonymous Login sucessfully");
+        this.log.debug("WebUntis Anonymous Login sucessful");
         await this.setStateAsync("info.connection", true, true);
 
         //Start the loop, we have an session
-        this.log.debug("Lese Timetable 0");
+        this.log.debug("Reading Timetable 0");
         untis.getTimetableFor(new Date(), this.class_id, APIWebUntis.TYPES.CLASS).then(async (timetable) => {
           // Now we can start
           //this.readDataFromWebUntis()
           if (timetable.length > 0) {
-            this.log.debug("Timetable gefunden");
+            this.log.debug("Timetable found");
 
             this.timetableDate = new Date(); //info timetbale is fro today
             await this.setTimeTable(timetable, this.timetableDate, 0);
@@ -193,7 +193,7 @@ class Webuntis extends utils.Adapter {
           }
           //Next day(s)
           for (let day = 1; day < this.numberOfDays; day++) {
-            this.log.debug("Lese Timetable +" + day);
+            this.log.debug("Reading Timetable +" + day);
 
             const newDate = new Date();
             newDate.setDate(this.timetableDate.getDate() + day);
@@ -223,16 +223,16 @@ class Webuntis extends utils.Adapter {
     // Test to login to WebUntis
     if (this.config.login_method == "PasswordLogin") {
       untis = new APIWebUntis(this.config.school, this.config.username, this.config.client_secret, this.config.baseUrl);
-      this.log.debug("WebUntis Login mit Passwort");
+      this.log.debug("WebUntis Login with password");
     } else {
       untis = new APIWebUntis.WebUntisSecretAuth(this.config.school, this.config.username, this.config.client_secret, this.config.baseUrl);
-      this.log.debug("WebUntis Login mit Secret");
+      this.log.debug("WebUntis Login with Secret");
     }
 
     untis
       .login()
       .then(async () => {
-        this.log.debug("WebUntis Login sucessfully");
+        this.log.debug("WebUntis Login sucessful");
         await this.setStateAsync("info.connection", true, true);
         this.timetableDate = new Date(); //info timetbale is for today
 
@@ -240,12 +240,12 @@ class Webuntis extends utils.Adapter {
         tomorrow.setDate(tomorrow.getDate() + 3);
 
         //Start the loop, we have an session
-        this.log.debug("Lese Timetable 0");
+        this.log.debug("Reading Timetable 0");
         untis
           .getOwnTimetableFor(this.timetableDate)
           .then(async (timetable) => {
             if (timetable.length > 0) {
-              this.log.debug("Timetable gefunden");
+              this.log.debug("Timetable found");
 
               await this.setTimeTable(timetable, this.timetableDate, 0, false);
             } else {
@@ -752,7 +752,7 @@ class Webuntis extends utils.Adapter {
     const delObject = await this.getObjectAsync("inbox." + index + ".subject");
 
     if (delObject) {
-      this.log.debug("Object zum löschen gefunden - " + index.toString());
+      this.log.debug("Object for deleting found - " + index.toString());
       await this.delObjectAsync(index.toString(), { recursive: true });
       // Have one delted, next round
       await this.deleteOldInboxObject(index + 1);
@@ -763,7 +763,7 @@ class Webuntis extends utils.Adapter {
     const delObject = await this.getObjectAsync("newsfeed." + index + ".text");
 
     if (delObject) {
-      this.log.debug("Object zum löschen gefunden - " + index.toString());
+      this.log.debug("Object for deleting found - " + index.toString());
       await this.delObjectAsync(index.toString(), { recursive: true });
       // Have one delted, next round
       await this.deleteOldNewsFeedObject(index + 1);
