@@ -145,6 +145,13 @@ class Webuntis extends utils.Adapter {
   }
   // -------------------------------------------------------------------------------------------------
   private startHourSchedule(): void {
+    let msToNextTime = this.getMillisecondsToNextFullHour();
+
+    const today = new Date().getHours();
+    if (today >= 6 && today < 8) {
+      // do more updates in the morning
+      msToNextTime = 15 * 60 * 1000; // 15 minutes
+    }
     if (this.startHourScheduleTimeout) {
       this.log.debug("clearing old refresh timeout");
       this.clearTimeout(this.startHourScheduleTimeout);
@@ -154,7 +161,7 @@ class Webuntis extends utils.Adapter {
       this.log.debug("Read new data from WebUntis");
       this.startHourScheduleTimeout = null;
       this.readDataFromWebUntis();
-    }, this.getMillisecondsToNextFullHour());
+    }, msToNextTime);
   }
   // -------------------------------------------------------------------------------------------------
   private readAnonymousData(): void {
