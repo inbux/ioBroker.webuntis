@@ -66,6 +66,8 @@ class Webuntis extends utils.Adapter {
       //Anonymous login startet
       const untis = new APIWebUntis.WebUntisAnonymousAuth(this.config.school, this.config.baseUrl);
 
+      this.subscribeStates("info.refresh");
+
       untis
         .login()
         .then(async () => {
@@ -137,6 +139,13 @@ class Webuntis extends utils.Adapter {
     if (state) {
       // The state was changed
       this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+
+      if (id.indexOf("info.refresh") != -1) {
+        if (state.val == true) {
+          this.setStateAsync("info.refresh", false, true);
+          this.readDataFromWebUntis();
+        }
+      }
     } else {
       // The state was deleted
       this.log.info(`state ${id} deleted`);

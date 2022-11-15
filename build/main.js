@@ -44,6 +44,7 @@ class Webuntis extends utils.Adapter {
         this.loginSuccessful = false;
         this.numberOfDays = 5;
         this.on("ready", this.onReady.bind(this));
+        this.on("stateChange", this.onStateChange.bind(this));
         this.on("unload", this.onUnload.bind(this));
         this.timetableDate = new Date();
         this.class_id = 0;
@@ -78,6 +79,7 @@ class Webuntis extends utils.Adapter {
         else {
             //Anonymous login startet
             const untis = new webuntis_1.default.WebUntisAnonymousAuth(this.config.school, this.config.baseUrl);
+            this.subscribeStates("info.refresh");
             untis
                 .login()
                 .then(async () => {
@@ -141,6 +143,23 @@ class Webuntis extends utils.Adapter {
                 this.readDataFromWebUntis();
         }, 3000);
     }
+    //--------------------------------------------------------------------------------------
+    onStateChange(id, state) {
+        if (state) {
+            // The state was changed
+            this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+            if (id.indexOf("info.refresh") != -1) {
+                if (state.val == true) {
+                    this.setStateAsync("info.refresh", false, true);
+                    this.readDataFromWebUntis();
+                }
+            }
+        }
+        else {
+            // The state was deleted
+            this.log.info(`state ${id} deleted`);
+        }
+    }
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
      */
@@ -156,6 +175,12 @@ class Webuntis extends utils.Adapter {
     }
     // -------------------------------------------------------------------------------------------------
     startHourSchedule() {
+        let msToNextTime = this.getMillisecondsToNextFullHour();
+        const today = new Date().getHours();
+        if (today >= 6 && today < 8) {
+            // do more updates in the morning
+            msToNextTime = 15 * 60 * 1000; // 15 minutes
+        }
         if (this.startHourScheduleTimeout) {
             this.log.debug("clearing old refresh timeout");
             this.clearTimeout(this.startHourScheduleTimeout);
@@ -164,7 +189,7 @@ class Webuntis extends utils.Adapter {
             this.log.debug("Read new data from WebUntis");
             this.startHourScheduleTimeout = null;
             this.readDataFromWebUntis();
-        }, this.getMillisecondsToNextFullHour());
+        }, msToNextTime);
     }
     // -------------------------------------------------------------------------------------------------
     readAnonymousData() {

@@ -182,11 +182,11 @@
             "native": {}
         },
         {
-            "_id": "refresh",
+            "_id": "info.refresh",
             "type": "state",
             "common": {
-                "role": "button",
-                "name": "Resfresh data now",
+                "role": "value",
+                "name": "Refresh data now",
                 "type": "boolean",
                 "read": true,
                 "write": true,
