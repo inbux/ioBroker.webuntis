@@ -182,6 +182,20 @@
             "native": {}
         },
         {
+            "_id": "refresh",
+            "type": "state",
+            "common": {
+                "role": "button",
+                "name": "Resfresh data now",
+                "type": "boolean",
+                "read": true,
+                "write": true,
+                "def": false
+          },
+            "native": {}
+        },
+        
+        {
             "_id": "info.connection",
             "type": "state",
             "common": {

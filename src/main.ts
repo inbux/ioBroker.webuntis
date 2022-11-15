@@ -28,6 +28,7 @@ class Webuntis extends utils.Adapter {
       name: "webuntis",
     });
     this.on("ready", this.onReady.bind(this));
+    this.on("stateChange", this.onStateChange.bind(this));
     this.on("unload", this.onUnload.bind(this));
     this.timetableDate = new Date();
     this.class_id = 0;
@@ -130,7 +131,17 @@ class Webuntis extends utils.Adapter {
       if (this.loginSuccessful) this.readDataFromWebUntis();
     }, 3000);
   }
+  //--------------------------------------------------------------------------------------
 
+  private onStateChange(id: string, state: ioBroker.State | null | undefined): void {
+    if (state) {
+      // The state was changed
+      this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+    } else {
+      // The state was deleted
+      this.log.info(`state ${id} deleted`);
+    }
+  }
   /**
    * Is called when adapter shuts down - callback has to be called under any circumstances!
    */
