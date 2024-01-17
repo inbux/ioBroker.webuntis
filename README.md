@@ -105,7 +105,7 @@ Diese Version muss über die "Katze" installiert werden und ersetzt den Standard
 
 MIT License
 
-Copyright (c) 2022 Inbux <inbux.development@gmail.com>
+Copyright (c) 2024 Inbux <inbux.development@gmail.com>
 
 Copyright (c) 2022 Newan <info@newan.de>
 
